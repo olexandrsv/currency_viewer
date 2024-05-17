@@ -8,7 +8,7 @@ import (
 )
 
 func main(){
-	repo, err := repository.NewRepository("../../subscribers.db")
+	repo, err := repository.NewRepository("../currency_viewer.db")
 	if err != nil{
 		log.Println(err)
 		return
