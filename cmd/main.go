@@ -7,16 +7,22 @@ import (
 	"log"
 )
 
-func main(){
-	repo, err := repository.NewRepository("../currency_viewer.db")
-	if err != nil{
+func main() {
+	repo, close, err := repository.NewRepository("../currency_viewer.db")
+	defer close()
+	if err != nil {
 		log.Println(err)
 		return
 	}
-	srv := service.NewService(repo)
+	srv, cancel, err := service.NewService(repo)
+	defer cancel()
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	h := handler.NewHandler(srv)
 
-	if err = h.Run(); err != nil{
+	if err = h.Run(); err != nil {
 		log.Println(err)
 		return
 	}

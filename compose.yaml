@@ -1,0 +1,5 @@
+services:
+    currency_viewer:
+        build: .
+        ports:
+          - "8080:8080"
